@@ -1,0 +1,7 @@
+
+
+GET https://docs.google.com/spreadsheets/d/1z4LuujrE9P9Wk4q6YNIKVaGBXTPbRAxX-0SkFSmVt18/gviz/tq?tqx=out:json&sheet=Data
+
+###
+
+GET https://docs.google.com/spreadsheets/d/1z4LuujrE9P9Wk4q6YNIKVaGBXTPbRAxX-0SkFSmVt18/gviz/tq?tqx=out:csv&sheet=Data

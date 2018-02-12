@@ -1,0 +1,38 @@
+.f3-table{
+	display: table;
+	width: 100%;
+}
+.f3-table-row {
+	display: table-row;
+}
+.f3-table-heading {
+	background-color: #EEE;
+	display: table-header-group;
+}
+.f3-table-cell, .f3-table-head {
+	border: 1px solid #999999;
+	display: table-cell;
+	padding: 3px 10px;
+}
+.f3-table-heading {
+	background-color: #EEE;
+	display: table-header-group;
+	font-weight: bold;
+}
+.f3-table-foot {
+	background-color: #EEE;
+	display: table-footer-group;
+	font-weight: bold;
+}
+.f3-table-body {
+	display: table-row-group;
+}
+
+.f3-map-wrapper {
+    margin-bottom: 10px;
+}
+
+.f3-map {
+    height: 400px;
+    width: 100%;
+}
