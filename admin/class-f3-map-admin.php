@@ -43,7 +43,7 @@ class F3_Map_Admin {
         </div>
         <?php
 
-        echo $this->options['css_selector'];
+        echo $this->options['gmap_api_key'];
     }
 
     public function wsc_register_settings() {
@@ -75,7 +75,7 @@ class F3_Map_Admin {
 
     public function google_maps_api() {
         printf(
-            '<input type="text" id="gmaps_api_key" name="' . $this->options_name . '[' . $this->option_gmap_api_key . ']" value="%s" />', 
+            '<input type="text" id="gmap_api_key" name="' . $this->options_name . '[' . $this->option_gmap_api_key . ']" value="%s" />', 
             isset( $this->options[$this->option_gmap_api_key]) ? esc_attr( $this->options[$this->option_gmap_api_key] ) : ''
         );
         echo "<br /><span>This is your Google Maps API key. You should pay attention to the impression counts in order to avoid the map exceeding the impression counts available on the free plan.</span>";

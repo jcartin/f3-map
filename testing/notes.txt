@@ -1,16 +1,4 @@
-#title {
-    font-size: 28px
-}
-
-.eleven40-red #header .wrap {
-    background-size: 365px 76px;
-}
-
-:: change text to "The Neighborhood Co"
-
-
-
-
-
 Google Maps API Key
 AIzaSyCIEbkOB1PZ_w5CwS4iNhtkDlwN-jRIL2Q
+
+
