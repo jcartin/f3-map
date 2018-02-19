@@ -29,6 +29,8 @@ const POST_LINK = 16;
      private $athlete;
 
      public function __construct($plugin_name, $version) {
+        require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-pig-array.php';
+
         $this->plugin_name = $plugin_name;
         $this->version = $version;
      }
@@ -52,8 +54,6 @@ const POST_LINK = 16;
 
 
      function assemble_map_link( $row ) {
-        // <a href="https://goo.gl/maps/r3ADP" target="_blank" class="ao-location" data-lat="33.998525" data-lng="-80.994108" 
-        // data-location="Dreher High School" data-workout="amble" data-line1="3319 Millwood Ave" data-line2="Columbia, SC 29205">Dreher High School</a><br />
         echo '<a href="' . $row[GOOGLE_MAPS_LINK] . '" target="_blank" class="ao-location"'
             . ' data-lat="' . $row[LATITUDE] . '"'
             . ' data-lng="' . $row[LONGITUDE] . '"'
@@ -126,6 +126,10 @@ const POST_LINK = 16;
             $index++;
             if ($index == 1) continue;
 
+            // wrap the CSV row in a PigArray instance. This will help ensure that the indexers 
+            // will safely return empty strings for out of bounds access.
+            $row = new PigArray($row, '');
+
             ?>
                 <div class="f3-table-row">
                         <div class="f3-table-cell f3-table-cell-location" data-label="Location"><?= $this->assemble_map_link($row) ?></div>
@@ -147,7 +151,7 @@ const POST_LINK = 16;
 
      public function f3_render_map( $atts ) {
         $options = get_option( 'f3-options-name' );
-        $f3_map_selector = $options['f3-css-selector'];
+        $f3_map_selector = $options['f3-css-selector'] ?? '.ao-location';
         ?>
         <div class="f3-map-wrapper">
             <div id="f3-map" class="f3-map" data-selector="<?php echo $f3_map_selection ?>"></div>

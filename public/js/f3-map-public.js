@@ -1,13 +1,32 @@
 (function( $ ) {
     // https://www.google.com/maps/place//@33.9981442,-80.9907453,14.79z/data=!4m5!3m4!1s0x0:0x97f699dd46da92e9!8m2!3d33.9991702!4d-80.9940058
     var map, infoWindows;
-    function F3_InitMap(selector) {
+    function F3_InitMap(selector, lat, lng) {
 
         // the maps js file is not loaded if the plugin does not have an API key defined.
         if (!google || !google.maps || !google.maps.Map) return;
 
+        var pos = {
+            latitude: lat, 
+            longitude: lng
+        };
+
+        // attempt to center the map on the current user's location
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                pos.latitude = position.coords.latitude;
+                pos.longitude = position.coords.longitude;
+
+                setupMap(selector, pos);
+            });
+        } else {
+            setupMap(selector, pos);
+        }
+    }
+
+    function setupMap(selector, pos) {
         map = new google.maps.Map(document.getElementById('f3-map'), {
-            center: { lat: 34.0088279, lng: -80.99547369999999},
+            center: { lat: pos.latitude, lng: pos.longitude},
             zoom: 12
         });
 
