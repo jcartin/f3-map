@@ -38,7 +38,8 @@ const POST_LINK = 16;
      }
 
      public function enqueue_scripts() {
-         $api_key = get_option('gmap_api_key');
+         $options = get_option( 'f3-options-name' );
+         $api_key = $options['f3-gmap-api-key'];
 
          // insert the google maps api scripts, only if the maps api key is configured.
          wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/f3-map-public.js', array( 'jquery' ), $this->version, false );
@@ -60,6 +61,9 @@ const POST_LINK = 16;
             . ' data-workout="' . $row[WORKOUT_NAME] . '"' 
             . ' data-line1="' . $row[STREET] . '"' 
             . ' data-line2="' . $row[CITY] . ', ' . $row[STATE] . ' ' . $row[ZIP] . '"' 
+            . ' data-day="' . $row[DAY_OF_WEEK] . '"' 
+            . ' data-starttime="' . $row[START_TIME] . '"' 
+            . ' data-endtime="' . $row[END_TIME] . '"' 
             . '>' 
             . $row[LOCATION] 
             . '</a>';
@@ -74,7 +78,8 @@ const POST_LINK = 16;
      }
 
      public function f3_render_table( $atts ) {
-        $f3_map_selection = get_option( 'css_selector' );
+        $options = get_option( 'f3-options-name' );
+        $f3_map_selector = $options['f3-css-selector'];
 
         $atts = shortcode_atts( array(
             'spreadsheet' => 'https://docs.google.com/spreadsheets/d/1z4LuujrE9P9Wk4q6YNIKVaGBXTPbRAxX-0SkFSmVt18/gviz/tq?tqx=out:csv&sheet=Data', 
@@ -97,9 +102,6 @@ const POST_LINK = 16;
         ob_start();
 
         ?>
-        <div class="f3-map-wrapper">
-            <div id="f3-map" class="f3-map" data-selector="<?php echo $f3_map_selection ?>"></div>
-        </div>
         <div class="f3-table">
             <div class="f3-table-heading">
                 <div class="f3-table-row"   >
@@ -136,20 +138,85 @@ const POST_LINK = 16;
             </div>
         </div>
         <?php
-
+        return ob_get_clean();
      }
 
      public function f3_render_map( $atts ) {
-        $f3_map_selection = get_option( 'css_selector' );
+        $options = get_option( 'f3-options-name' );
+        $f3_map_selector = $options['f3-css-selector'];
         ?>
+        <div class="f3-map-wrapper">
+            <div id="f3-map" class="f3-map" data-selector="<?php echo $f3_map_selection ?>"></div>
+        </div>
+        <div class="f3-map-details">
+            <div>
+                <div class="f3-map-details-location" id="f3-map-details-location">Dreher High School</div>
+                <div class="f3-map-details-address" id="f3-map-details-address">
+                    3319 Millwood Ave
+                    Columbia, SC 20205
+                </div>
+            </div>
+            <div class="f3-table">
+                <div class="f3-table-heading">
+                    <div class="f3-table-row">
+                        <div class="f3-table-cell">
+                            Sunday
+                        </div>
+                        <div class="f3-table-cell">
+                            Monday
+                        </div>
+                        <div class="f3-table-cell">
+                            Tuesday
+                        </div>
+                        <div class="f3-table-cell">
+                            Wednesday
+                        </div>
+                        <div class="f3-table-cell">
+                            Thursday
+                        </div>
+                        <div class="f3-table-cell">
+                            Friday
+                        </div>
+                        <div class="f3-table-cell">
+                            Saturday
+                        </div>
+                    </div>
+                </div>
+                <div class="f3-table-body">
+                    <div class="f3-table-row">
+                        <div class="f3-table-cell">
+                            <span id="f3-map-detail-monday"></span>
+                        </div>
+                        <div class="f3-table-cell">
+                            <span id="f3-map-detail-tuesday"></span>
+                        </div>
+                        <div class="f3-table-cell">
+                            <span id="f3-map-detail-wednesday"></span>
+                        </div>
+                        <div class="f3-table-cell">
+                        <span id="f3-map-detail-wednesday"></span>
+                        </div>
+                        <div class="f3-table-cell">
+                        <span id="f3-map-detail-thrusday"></span>
+                        </div>
+                        <div class="f3-table-cell">
+                        <span id="f3-map-detail-friday"></span>
+                        </div>
+                        <div class="f3-table-cell">
+                        <span id="f3-map-detail-saturday"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <script>
             jQuery(function() {
-                F3_InitMap('<?php echo $f3_map_selection ?>');
+                F3_InitMap('<?php echo $f3_map_selector ?>');
             });
         </script>
 
         <?php
-        return ob_get_clean();
+        
      }
  }

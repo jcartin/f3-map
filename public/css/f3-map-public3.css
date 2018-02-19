@@ -37,16 +37,7 @@
     width: 100%;
 }
 
-.f3-map-details {
-	display: none;
-}
-
-.f3-map-details-location {
-	float: left;
-	font-weight: bold;
-	font-size: 26;
-}
-
-.f3-map-details-address {
-	float: right;
+@media only screen and (min-width: 35em) {
+    /* Style adjustments for viewports that meet the condition */
+    
 }

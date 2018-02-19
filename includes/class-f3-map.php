@@ -30,8 +30,8 @@
     private function define_admin_hooks() {
         $plugin_admin = new F3_Map_Admin( $this->plugin_name, $this->version );
 
-        $this->loader->add_action( 'admin_menu', $plugin_admin, 'wsc_register_options_page' );
-        $this->loader->add_action( 'admin_init', $plugin_admin, 'wsc_register_settings' );
+        $this->loader->add_action( 'admin_menu', $plugin_admin, 'f3_register_options_page' );
+        $this->loader->add_action( 'admin_init', $plugin_admin, 'f3_register_settings' );
     }
 
     private function define_public_hooks() {

@@ -22,49 +22,54 @@ class F3_Map_Admin {
         $this->version = $version;
     }
 
-    public function wsc_register_options_page() {
+    public function f3_register_options_page() {
         //add_options_page( page_title, menu_title, capability, menu_slug, function )
-        add_options_page( 'F3 Map Settings', 'F3 Map', 'manage_options', $this->options_page, array( $this, 'wsd_create_admin_page' ) );
+        add_options_page( 'F3 Map Settings', 'F3 Map', 'manage_options', $this->options_page, array( $this, 'f3_create_admin_page' ) );
     }   
 
-    
+    public function f3_register_settings() {
 
-    public function wsd_create_admin_page() {
-        $this->options = get_option( $this->options_name );
+        // register_setting( $this->options_group, $this->option_gmap_api_key );
+        // register_setting( $this->options_group, $this->option_css_selector );
+
+        // register_setting( $this->options_group, $this->options_name, array( $this, 'sanitize' ) );
+        // add_settings_section( $this->options_section, 'F3 Map Settings', array( $this, 'print_section_info' ), $this->options_page );
+        // add_settings_field( $this->option_gmap_api_key, 'Google Maps API Key', array( $this, 'google_maps_api' ), $this->options_page, $this->options_section );
+        // add_settings_field( $this->option_css_selector, 'CSS Selector', array( $this, 'map_selector' ), $this->options_page, $this->options_section );
+
+        register_setting( 'f3-options-group', 'f3-options-name', array( $this, 'sanitize' ) );
+        add_settings_section( 'f3-options-section', 'Map Options', array( $this, 'print_section_info' ), 'f3-options-page' );
+        add_settings_field( 'f3-gmap-api-key', 'Google Maps API Key', array( $this, 'google_maps_api' ), 'f3-options-page', 'f3-options-section' );
+        add_settings_field( 'f3-css-selector', 'AO Location CSS Selector', array( $this, 'map_selector' ), 'f3-options-page', 'f3-options-section' );
+
+    }
+
+    public function f3_create_admin_page() {
+        $this->options = get_option( 'f3-options-name' );
         ?>
         <div class="wrap">
             <form method="post">
-                <?php settings_fields( $this->options_group ) ?>
+                <?php settings_fields( 'f3-options-group' ) ?>
                 <?php
-                do_settings_sections( $this->options_page );
+                do_settings_sections( 'f3-options-page' );
                 submit_button();
                 ?>
             </form>
         </div>
         <?php
 
-        echo $this->options['gmap_api_key'];
-    }
-
-    public function wsc_register_settings() {
-
-        // register_setting( $this->options_group, $this->option_gmap_api_key );
-        // register_setting( $this->options_group, $this->option_css_selector );
-
-        register_setting( $this->options_group, $this->options_name, array( $this, 'sanitize' ) );
-        add_settings_section( $this->options_section, 'F3 Map Settings', array( $this, 'print_section_info' ), $this->options_page );
-        add_settings_field( $this->option_gmap_api_key, 'Google Maps API Key', array( $this, 'google_maps_api' ), $this->options_page, $this->options_section );
-        add_settings_field( $this->option_css_selector, 'CSS Selector', array( $this, 'map_selector' ), $this->options_page, $this->options_section );
+        echo $this->options['f3-gmap-api-key'];
+        echo $this->options['f3-css-selector'];
     }
 
     public function sanitize($input) {
         $new_input = array();
 
-        if ( isset($input[$this->option_css_selector]) )
-            $new_input[$this->option_css_selector] = sanitize_text_field( $input[$this->option_css_selector] );
+        if ( isset($input['f3-css-selector']) )
+            $new_input['f3-css-selector'] = sanitize_text_field( $input['f3-css-selector'] );
 
-        if ( isset($input[$this->option_css_selector]) ) 
-            $new_input[$this->option_css_selector] = sanitize_text_field( $input[$this->option_css_selector] );
+        if ( isset($input['f3-gmap-api-key']) ) 
+            $new_input['f3-gmap-api-key'] = sanitize_text_field( $input['f3-gmap-api-key'] );
 
         return $new_input;
     }
@@ -74,19 +79,28 @@ class F3_Map_Admin {
     }
 
     public function google_maps_api() {
+        // printf(
+        //     '<input type="text" id="gmap_api_key" name="' . $this->options_name . '[' . $this->option_gmap_api_key . ']" value="%s" />', 
+        //     isset( $this->options[$this->option_gmap_api_key]) ? esc_attr( $this->options[$this->option_gmap_api_key] ) : ''
+        // );
+        // echo "<br /><span>This is your Google Maps API key. You should pay attention to the impression counts in order to avoid the map exceeding the impression counts available on the free plan.</span>";
+
         printf(
-            '<input type="text" id="gmap_api_key" name="' . $this->options_name . '[' . $this->option_gmap_api_key . ']" value="%s" />', 
-            isset( $this->options[$this->option_gmap_api_key]) ? esc_attr( $this->options[$this->option_gmap_api_key] ) : ''
+            '<input type="text" id="f3_gmap_api_key" name="f3-options-name[f3-gmap-api-key]" value="%s"', 
+                isset( $this->options['f3-gmap-api-key'] ) ? esc_attr( $this->options['f3-gmap-api-key'] ) : ''
         );
-        echo "<br /><span>This is your Google Maps API key. You should pay attention to the impression counts in order to avoid the map exceeding the impression counts available on the free plan.</span>";
     }
 
     public function map_selector() {
+        // printf(
+        //     '<input type="text" id="map_selector" name="' . $this->options_name . '[' . $this->option_css_selector . ']" value="%s" />', 
+        //     isset( $this->options[$this->option_css_selector]) ? esc_attr( $this->options[$this->option_css_selector] ) : ''
+        // );
+        // echo "<br /><span>The CSS Selector option can change what jQuery selector is used to find the data that is used to populate the map. There are very few reasons for changing this value.</span>";
         printf(
-            '<input type="text" id="map_selector" name="' . $this->options_name . '[' . $this->option_css_selector . ']" value="%s" />', 
-            isset( $this->options[$this->option_css_selector]) ? esc_attr( $this->options[$this->option_css_selector] ) : ''
+            '<input type="text" id="f3_css_selector" name="f3-options-name[f3-css-selector]" value="%s"', 
+                isset( $this->options['f3-css-selector'] ) ? esc_attr( $this->options['f3-css-selector'] ) : ''
         );
-        echo "<br /><span>The CSS Selector option can change what jQuery selector is used to find the data that is used to populate the map. There are very few reasons for changing this value.</span>";
     }
 }
 

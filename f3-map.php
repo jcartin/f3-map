@@ -32,21 +32,21 @@
  define( 'F3S_PATH', plugin_dir_path( __FILE__ ));
 
  function activate_f3_map() {
-    $wsc_options = get_option('f3-map-options');
+    $wsc_options = get_option('f3-options-name');
 
     if ($wsc_options == false) {
         $wsc_options = array();
     }
 
-    if (!array_key_exists('gmap_api_key', $wsc_options)) {
-        $wsc_options['gmap_api_key'] = 'NEED TO SET THIS';
+    if (!array_key_exists('f3-gmap-api-key', $wsc_options)) {
+        $wsc_options['f3-gmap-api-key'] = 'AIzaSyCIEbkOB1PZ_w5CwS4iNhtkDlwN-jRIL2Q';
     }
 
-    if (!array_key_exists('css_selector', $wsc_options)) {
-        $wsc_options['css_selector'] = '.ao-location';
+    if (!array_key_exists('f3-css-selector', $wsc_options)) {
+        $wsc_options['f3-css-selector'] = '.ao-location';
     }
 
-    update_option('f3-map-options', $wsc_options);
+    update_option('f3-options-name', $wsc_options);
  }
 
  register_activation_hook( __FILE__, 'activate_f3_map' );
