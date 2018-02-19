@@ -1,3 +1,9 @@
+.f3-table-title {
+	font-size: 1.2em;
+	font-weight: bold;
+	padding-bottom: 15px;
+}
+
 .f3-table{
 	display: table;
 	width: 100%;
@@ -49,4 +55,13 @@
 
 .f3-map-details-address {
 	float: right;
+}
+
+.f3-map-details-workout {
+	width: 100%;
+}
+
+.f3-map-details-time {
+	font-size: 0.8em;
+	width: 100%;
 }

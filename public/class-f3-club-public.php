@@ -84,7 +84,8 @@ const POST_LINK = 16;
         $atts = shortcode_atts( array(
             'spreadsheet' => 'https://docs.google.com/spreadsheets/d/1z4LuujrE9P9Wk4q6YNIKVaGBXTPbRAxX-0SkFSmVt18/gviz/tq?tqx=out:csv&sheet=Data', 
             'lat' => '34.0088279', 
-            'lng' => '-80.99547369999999'
+            'lng' => '-80.99547369999999', 
+            'title' => ''
         ), $atts );
 
         if (strlen($atts['spreadsheet']) == 0) {
@@ -93,7 +94,7 @@ const POST_LINK = 16;
         }
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://docs.google.com/spreadsheets/d/1z4LuujrE9P9Wk4q6YNIKVaGBXTPbRAxX-0SkFSmVt18/gviz/tq?tqx=out:csv&sheet=Data');
+        curl_setopt($ch, CURLOPT_URL, $atts['spreadsheet']);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
         $csv = curl_exec($ch);
@@ -102,6 +103,9 @@ const POST_LINK = 16;
         ob_start();
 
         ?>
+        <div class-"f3-table-title">
+            <?php echo $atts['title'] ?>
+        </div> 
         <div class="f3-table">
             <div class="f3-table-heading">
                 <div class="f3-table-row"   >
@@ -185,19 +189,19 @@ const POST_LINK = 16;
                 <div class="f3-table-body">
                     <div class="f3-table-row">
                         <div class="f3-table-cell">
+                            <span id="f3-map-detail-sunday"></span>
+                        </div>
+                        <div class="f3-table-cell">
                             <span id="f3-map-detail-monday"></span>
                         </div>
                         <div class="f3-table-cell">
                             <span id="f3-map-detail-tuesday"></span>
                         </div>
                         <div class="f3-table-cell">
-                            <span id="f3-map-detail-wednesday"></span>
-                        </div>
-                        <div class="f3-table-cell">
                         <span id="f3-map-detail-wednesday"></span>
                         </div>
                         <div class="f3-table-cell">
-                        <span id="f3-map-detail-thrusday"></span>
+                        <span id="f3-map-detail-thursday"></span>
                         </div>
                         <div class="f3-table-cell">
                         <span id="f3-map-detail-friday"></span>

@@ -104,32 +104,40 @@
             $('#f3-map-details-location').text(name);
             $('#f3-map-details-address').text(line1 + ' ' + line2);
 
-            var m = [];
-            var t = [];
-            var w = [];
-            
-            $.each(items, function(index, item) {
-                
-            });
+            var count = 0;
+            count += evaluateWeekday(items, 'Sunday', '#f3-map-detail-sunday');
+            count += evaluateWeekday(items, 'Monday', '#f3-map-detail-monday');
+            count += evaluateWeekday(items, 'Tuesday', '#f3-map-detail-tuesday');
+            count += evaluateWeekday(items, 'Wednesday', '#f3-map-detail-wednesday');
+            count += evaluateWeekday(items, 'Thursday', '#f3-map-detail-thursday');
+            count += evaluateWeekday(items, 'Friday', '#f3-map-detail-friday');
+            count += evaluateWeekday(items, 'Saturday', '#f3-map-detail-saturday');
 
-            $('.f3-map-details').show();
-
-            return;
-
-    var txt = '<div id="content">';
-    txt += '<h1>' + workout + '</h1>';
-    txt += '<div class="info-body">';
-    txt += '<p>';
-    txt += name + '<br />';
-    txt += line1 + '<br />';
-    txt += line2 + '<br />';
-    txt += '</p></div></div>';
-
-            var iw = new google.maps.InfoWindow({
-                content: txt
-            });
-            iw.open(map, marker);
+            if (count > 0) {
+                $('.f3-map-details').show();
+                $('.f3-map-details')[0].scrollIntoView({
+                    behavior: "smooth", 
+                    block: "end"
+                });
+            }
         });
+    }
+
+    function evaluateWeekday(items, day, selector) {
+        var aos = [];
+
+        $.each (items, function(i, item) {
+            if (!item || !item.day) return;
+            if (item.day === day) aos.push(item);
+        });
+
+        $(selector).text('');
+
+        $.each(aos, function(i, item) {
+            $(selector).append('<div><div class="f3-map-details-workout">' + item.workout + '</div><div class="f3-map-details-time">(' + item.starttime + ' - ' + item.endtime + ')</div></div>');
+        });
+
+        return aos.length;
     }
 
     // expose the main entry point globally. This is probably a bad idea and should be refactored soon! 
