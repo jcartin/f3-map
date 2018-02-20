@@ -161,8 +161,7 @@
         $(selector).text('');
 
         $.each(aos, function(i, item) {
-            //$(selector).append('<div><div class="f3-map-details-workout">' + item.workout + '</div><div class="f3-map-details-time">(' + item.starttime + ' - ' + item.endtime + ')</div></div>');
-            $(selector).append(`<div><div class="f3-map-details-workout">${item.workout}</div><div class="f3-map-details-time">(${item.starttime} - ${item.endtime})</div></div>`);
+            $(selector).append(`<div><div class="f3-map-details-workout">${toTitleCase(item.workout)}</div><div class="f3-map-details-time">(${item.starttime} - ${item.endtime})</div></div>`);
         });
 
         return aos.length;
