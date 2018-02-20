@@ -1,8 +1,3 @@
-.f3-table-title {
-	font-weight: bold;
-	padding-bottom: 15px;
-}
-
 .f3-table{
 	display: table;
 	width: 100%;
@@ -10,9 +5,8 @@
 .f3-table-row {
 	display: table-row;
 }
-.f3-table-heading {
-	background-color: #EEE;
-	display: table-header-group;
+.f3-table-row:nth-child(even) {
+	background-color: #f9f9f9;
 }
 .f3-table-cell, .f3-table-head {
 	border: 1px solid #999999;
@@ -20,7 +14,7 @@
 	padding: 3px 10px;
 }
 .f3-table-heading {
-	background-color: #EEE;
+	background-color: #d9edf7;
 	display: table-header-group;
 	font-weight: bold;
 }
@@ -63,4 +57,46 @@
 .f3-map-details-time {
 	font-size: 0.8em;
 	width: 100%;
+}
+
+.f3-table-title {
+	font-weight: 400;
+	padding-bottom: 15px;
+	font-size: 2rem;
+}
+
+@media only screen and (max-width: 768px) {
+
+	.f3-table {
+		display: block;
+		width: 100%;
+	}
+
+	.f3-table-heading {
+		display: none;
+	}
+
+	.f3-table-body {
+		display: block;
+		line-height: 0!important;
+	}
+
+	.f3-table-row {
+		display: block;
+		border: 1px solid #999999;
+	}
+
+	.f3-table-cell {
+		display: block;
+		text-align: right;
+		border: none;
+	}
+
+	.f3-table-cell::before {
+		content: attr(data-label);
+		float: left;
+		text-transform: uppercase;
+		font-weight: bold;
+	}
+
 }

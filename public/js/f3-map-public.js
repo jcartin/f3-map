@@ -12,10 +12,12 @@
         };
 
         // attempt to center the map on the current user's location
-        if (navigator.geolocation) {
+        if (!lat && !lng && navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 pos.latitude = position.coords.latitude;
                 pos.longitude = position.coords.longitude;
+
+                console.log(pos);
 
                 setupMap(selector, pos);
             });
@@ -99,6 +101,8 @@
     }
 
     function LatLngExists(items, lat, lng) {
+        if (!items || !lat || !lng) return null;
+
         for (var i = 0; i < items.length; i++) {
             var item = items[i];
             if (item.lat == lat && item.lng == lng) {
@@ -138,11 +142,15 @@
                     behavior: "smooth", 
                     block: "end"
                 });
+            } else {
+                $('.f3-map-details').hide();
             }
         });
     }
 
     function evaluateWeekday(items, day, selector) {
+        if (!items || !day || !selector) return 0;
+
         var aos = [];
 
         $.each (items, function(i, item) {
@@ -153,13 +161,14 @@
         $(selector).text('');
 
         $.each(aos, function(i, item) {
-            $(selector).append('<div><div class="f3-map-details-workout">' + item.workout + '</div><div class="f3-map-details-time">(' + item.starttime + ' - ' + item.endtime + ')</div></div>');
+            //$(selector).append('<div><div class="f3-map-details-workout">' + item.workout + '</div><div class="f3-map-details-time">(' + item.starttime + ' - ' + item.endtime + ')</div></div>');
+            $(selector).append(`<div><div class="f3-map-details-workout">${item.workout}</div><div class="f3-map-details-time">(${item.starttime} - ${item.endtime})</div></div>`);
         });
 
         return aos.length;
     }
 
-    // expose the main entry point globally. This is probably a bad idea and should be refactored soon! 
+    // expose the main entry point globally. This is probably a good idea and should be refactored soon! 
     window.F3_InitMap = F3_InitMap;
 
 })(jQuery);

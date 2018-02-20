@@ -81,10 +81,13 @@ const POST_LINK = 16;
         $options = get_option( 'f3-options-name' );
         $f3_map_selector = $options['f3-css-selector'];
 
+        // explanation of shortcode attributes:
+        // spreadsheet: the unauthenticated url for the google spreadsheet to load.
+        // title: the bolded table title
         $atts = shortcode_atts( array(
-            'spreadsheet' => 'https://docs.google.com/spreadsheets/d/1z4LuujrE9P9Wk4q6YNIKVaGBXTPbRAxX-0SkFSmVt18/gviz/tq?tqx=out:csv&sheet=Data', 
-            'lat' => '34.0088279', 
-            'lng' => '-80.99547369999999', 
+            'spreadsheet' => '', 
+            'lat' => 'null', 
+            'lng' => 'null', 
             'title' => ''
         ), $atts );
 
@@ -103,7 +106,7 @@ const POST_LINK = 16;
         ob_start();
 
         ?>
-        <div class-"f3-table-title">
+        <div class="f3-table-title">
             <?php echo $atts['title'] ?>
         </div> 
         <div class="f3-table">
@@ -134,7 +137,7 @@ const POST_LINK = 16;
                 <div class="f3-table-row">
                         <div class="f3-table-cell f3-table-cell-location" data-label="Location"><?= $this->assemble_map_link($row) ?></div>
                         <div class="f3-table-cell f3-table-cell-workout" data-label="Workout Title"><?= $this->assemble_post_link($row) ?></div>
-                        <div class="f3-table-cell f3-table-cell-day" data-layout="Day of the Week"><?= $row[DAY_OF_WEEK] ?></div>
+                        <div class="f3-table-cell f3-table-cell-day" data-label="Day of the Week"><?= $row[DAY_OF_WEEK] ?></div>
                         <div class="f3-table-cell f3-table-cell-start" data-label="Start Time"><?= $row[START_TIME] ?></div>
                         <div class="f3-table-cell f3-table-cell-end" data-label="End Time"><?= $row[END_TIME] ?></div>
                         <div class="f3-table-cell f3-table-cell-style" data-label="Workout Style"><?= $row[WORKOUT_STYLE] ?></div>
@@ -152,6 +155,12 @@ const POST_LINK = 16;
      public function f3_render_map( $atts ) {
         $options = get_option( 'f3-options-name' );
         $f3_map_selector = $options['f3-css-selector'] ?? '.ao-location';
+
+        $atts = shortcode_atts( array(
+            'lat' => 'null', 
+            'lng' => 'null', 
+        ), $atts );
+
         ?>
         <div class="f3-map-wrapper">
             <div id="f3-map" class="f3-map" data-selector="<?php echo $f3_map_selection ?>"></div>
@@ -192,25 +201,25 @@ const POST_LINK = 16;
                 </div>
                 <div class="f3-table-body">
                     <div class="f3-table-row">
-                        <div class="f3-table-cell">
+                        <div class="f3-table-cell" data-label="Sunday">
                             <span id="f3-map-detail-sunday"></span>
                         </div>
-                        <div class="f3-table-cell">
+                        <div class="f3-table-cell" data-label="Monday">
                             <span id="f3-map-detail-monday"></span>
                         </div>
-                        <div class="f3-table-cell">
+                        <div class="f3-table-cell" data-label="Tuesday">
                             <span id="f3-map-detail-tuesday"></span>
                         </div>
-                        <div class="f3-table-cell">
+                        <div class="f3-table-cell" data-label="Wednesday">
                         <span id="f3-map-detail-wednesday"></span>
                         </div>
-                        <div class="f3-table-cell">
+                        <div class="f3-table-cell" data-label="Thursday">
                         <span id="f3-map-detail-thursday"></span>
                         </div>
-                        <div class="f3-table-cell">
+                        <div class="f3-table-cell" data-label="Friday">
                         <span id="f3-map-detail-friday"></span>
                         </div>
-                        <div class="f3-table-cell">
+                        <div class="f3-table-cell" data-label="Saturday">
                         <span id="f3-map-detail-saturday"></span>
                         </div>
                     </div>
@@ -220,7 +229,7 @@ const POST_LINK = 16;
 
         <script>
             jQuery(function() {
-                F3_InitMap('<?php echo $f3_map_selector ?>');
+                F3_InitMap('<?php echo $f3_map_selector ?>', <?php echo $atts['lat'] ?>, <?php echo $atts['lng'] ?>);
             });
         </script>
 

@@ -1,3 +1,8 @@
+.f3-table-title {
+	font-weight: bold;
+	padding-bottom: 15px;
+}
+
 .f3-table{
 	display: table;
 	width: 100%;
@@ -37,7 +42,60 @@
     width: 100%;
 }
 
-@media only screen and (min-width: 35em) {
-    /* Style adjustments for viewports that meet the condition */
-    
+.f3-map-details {
+	display: none;
+}
+
+.f3-map-details-location {
+	float: left;
+	font-weight: bold;
+	font-size: 26;
+}
+
+.f3-map-details-address {
+	float: right;
+}
+
+.f3-map-details-workout {
+	width: 100%;
+}
+
+.f3-map-details-time {
+	font-size: 0.8em;
+	width: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+
+	.f3-table {
+		display: block;
+		width: 100%;
+	}
+
+	.f3-table-heading {
+		display: none;
+	}
+
+	.f3-table-body {
+		display: block;
+	}
+
+	.f3-table-row {
+		display: block;
+		border: 1px solid #999999;
+	}
+
+	.f3-table-cell {
+		display: block;
+		text-align: right;
+		border: none;
+	}
+
+	.f3-table-cell::before {
+		content: attr(data-label);
+		float: left;
+		text-transform: uppercase;
+		font-weight: bold;
+	}
+
 }
