@@ -50,6 +50,8 @@
 	float: right;
 }
 
+
+
 .f3-map-details-workout {
 	width: 100%;
 }
@@ -96,6 +98,26 @@
 		float: left;
 		text-transform: uppercase;
 		font-weight: bold;
+	}
+
+	.f3-map-details-header {
+		display: block;
+		padding-bottom: 52px;
+	}
+
+	.f3-map-details-address {
+		display: block;
+		float: left;
+		padding-left: 10px;
+	}
+	
+	.f3-map-details-workout {
+		display: block;
+		float: none;
+	}
+
+	.f3-calendar-row:nth-child(even) {
+		background-color: #f9f9f9;
 	}
 
 }

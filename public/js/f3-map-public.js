@@ -1,6 +1,20 @@
 (function( $ ) {
     // https://www.google.com/maps/place//@33.9981442,-80.9907453,14.79z/data=!4m5!3m4!1s0x0:0x97f699dd46da92e9!8m2!3d33.9991702!4d-80.9940058
     var map, infoWindows;
+
+    function F3SetupMap() {
+        $(function() {
+            var config = $("#f3-map-details-config");
+            if (config) {
+                var selector = config.data("selector");
+                var lat = config.data("lat");
+                var lng = config.data("lng");
+
+                F3_InitMap(selector, lat, lng);
+            }
+        });
+    }
+
     function F3_InitMap(selector, lat, lng) {
 
         // the maps js file is not loaded if the plugin does not have an API key defined.
@@ -158,16 +172,25 @@
             if (item.day === day) aos.push(item);
         });
 
+        if (aos.length === 0) {
+            // no AOs to report. we need to still draw the divs below
+            aos.push({workout: '', starttime: '', endtime: ''});
+        }
+
         $(selector).text('');
 
         $.each(aos, function(i, item) {
-            $(selector).append(`<div><div class="f3-map-details-workout">${toTitleCase(item.workout)}</div><div class="f3-map-details-time">(${item.starttime} - ${item.endtime})</div></div>`);
+            var timeframe = item.starttime;
+            if (item.endtime || item.endtime.length > 0) {
+                timeframe = timeframe + ' - ' + item.endtime;
+            }
+            $(selector).append('<div><div class="f3-map-details-workout">' + toTitleCase(item.workout) + '&nbsp;</div><div class="f3-map-details-time">' + timeframe + '&nbsp;</div></div>');
         });
 
         return aos.length;
     }
 
     // expose the main entry point globally. This is probably a good idea and should be refactored soon! 
-    window.F3_InitMap = F3_InitMap;
+    window.F3SetupMap = F3SetupMap;
 
 })(jQuery);

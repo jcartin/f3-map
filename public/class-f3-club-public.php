@@ -46,7 +46,7 @@ const POST_LINK = 16;
          // insert the google maps api scripts, only if the maps api key is configured.
          wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/f3-map-public.js', array( 'jquery' ), $this->version, false );
          if ( strlen( $api_key ) > 0 ) {
-            wp_enqueue_script( 'f3_google_maps', '//maps.googleapis.com/maps/api/js?key=' . $api_key, array( 'jquery', $this->plugin_name ), '', false );
+            wp_enqueue_script( 'f3_google_maps', '//maps.googleapis.com/maps/api/js?callback=F3SetupMap&key=' . $api_key, array( 'jquery', $this->plugin_name ), '', false );
          }
          
          wp_enqueue_script( 'f3_underscore', '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js', array( 'underscore', $this->plugin_name ), '', false );         
@@ -166,7 +166,7 @@ const POST_LINK = 16;
             <div id="f3-map" class="f3-map" data-selector="<?php echo $f3_map_selection ?>"></div>
         </div>
         <div class="f3-map-details">
-            <div>
+            <div class="f3-map-details-header">
                 <div class="f3-map-details-location" id="f3-map-details-location">Dreher High School</div>
                 <div class="f3-map-details-address" id="f3-map-details-address">
                     3319 Millwood Ave
@@ -201,37 +201,35 @@ const POST_LINK = 16;
                 </div>
                 <div class="f3-table-body">
                     <div class="f3-table-row">
-                        <div class="f3-table-cell" data-label="Sunday">
+                        <div class="f3-table-cell f3-calendar-row" data-label="Sunday">
                             <span id="f3-map-detail-sunday"></span>
                         </div>
-                        <div class="f3-table-cell" data-label="Monday">
+                        <div class="f3-table-cell f3-calendar-row" data-label="Monday">
                             <span id="f3-map-detail-monday"></span>
                         </div>
-                        <div class="f3-table-cell" data-label="Tuesday">
+                        <div class="f3-table-cell f3-calendar-row" data-label="Tuesday">
                             <span id="f3-map-detail-tuesday"></span>
                         </div>
-                        <div class="f3-table-cell" data-label="Wednesday">
+                        <div class="f3-table-cell f3-calendar-row" data-label="Wednesday">
                         <span id="f3-map-detail-wednesday"></span>
                         </div>
-                        <div class="f3-table-cell" data-label="Thursday">
+                        <div class="f3-table-cell f3-calendar-row" data-label="Thursday">
                         <span id="f3-map-detail-thursday"></span>
                         </div>
-                        <div class="f3-table-cell" data-label="Friday">
+                        <div class="f3-table-cell f3-calendar-row" data-label="Friday">
                         <span id="f3-map-detail-friday"></span>
                         </div>
-                        <div class="f3-table-cell" data-label="Saturday">
+                        <div class="f3-table-cell f3-calendar-row" data-label="Saturday">
                         <span id="f3-map-detail-saturday"></span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <script>
-            jQuery(function() {
-                F3_InitMap('<?php echo $f3_map_selector ?>', <?php echo $atts['lat'] ?>, <?php echo $atts['lng'] ?>);
-            });
-        </script>
+        <div id="f3-map-details-config" 
+            data-selector="<?php echo $f3_map_selector ?>" 
+            data-lat="<?php echo $atts["lat"] ?>" 
+            data-lng="<?php echo $atts["lng"] ?>"></div>
 
         <?php
         
