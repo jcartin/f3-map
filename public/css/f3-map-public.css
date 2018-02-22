@@ -36,6 +36,11 @@
     width: 100%;
 }
 
+.f3-map-instructions {
+	font-size: .8em;
+	font-style: italic;
+}
+
 .f3-map-details {
 	display: none;
 }
@@ -50,7 +55,9 @@
 	float: right;
 }
 
-
+.f3-map-details-header {
+	clear: both;
+}
 
 .f3-map-details-workout {
 	width: 100%;

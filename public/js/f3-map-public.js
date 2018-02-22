@@ -1,5 +1,4 @@
 (function( $ ) {
-    // https://www.google.com/maps/place//@33.9981442,-80.9907453,14.79z/data=!4m5!3m4!1s0x0:0x97f699dd46da92e9!8m2!3d33.9991702!4d-80.9940058
     var map, infoWindows;
 
     function F3SetupMap() {
@@ -152,9 +151,15 @@
 
             if (count > 0) {
                 $('.f3-map-details').show();
-                $('html, body').animate({
-                    scrollTop: $(".f3-map-details").offset().top
-                }, 1000);
+
+                // only scroll the calendar into view if the mobile style sheet 
+                // is being used.
+                if (window.innerWidth <= 768) {
+                    $('html, body').animate({
+                        scrollTop: $(".f3-map-details").offset().top
+                    }, 1000);
+                } 
+                
             } else {
                 $('.f3-map-details').hide();
             }

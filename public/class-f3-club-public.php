@@ -54,7 +54,9 @@ const POST_LINK = 16;
 
 
      function assemble_map_link( $row ) {
-        echo '<a href="' . $row[GOOGLE_MAPS_LINK] . '" target="_blank" class="ao-location"'
+        echo '<a href="' . $row[GOOGLE_MAPS_LINK] . '"' 
+            . ' title="Click to show AO location in google maps (separate tab)"'
+            . ' target="_blank" class="ao-location"'
             . ' data-lat="' . $row[LATITUDE] . '"'
             . ' data-lng="' . $row[LONGITUDE] . '"'
             . ' data-location="' . $row[LOCATION] . '"'
@@ -70,11 +72,11 @@ const POST_LINK = 16;
      }
      
      function assemble_twitter_link($row) {
-         return '<a target="_blank" href="https://twitter.com/' . $row[TWITTER_HANDLE] . '">' . $row[TWITTER_NAME] . '</a>';
+         return '<a title="Click to visit twitter" target="_blank" href="https://twitter.com/' . $row[TWITTER_HANDLE] . '">' . $row[TWITTER_NAME] . '</a>';
      }
 
      function assemble_post_link($row) {
-         return '<a href="' . $row[POST_LINK] . '">' . $row[WORKOUT_NAME] . '</a>';;
+         return '<a title="Click to visit backblasts for this AO" href="' . $row[POST_LINK] . '">' . $row[WORKOUT_NAME] . '</a>';;
      }
 
      public function f3_render_table( $atts ) {
@@ -164,6 +166,9 @@ const POST_LINK = 16;
         ?>
         <div class="f3-map-wrapper">
             <div id="f3-map" class="f3-map" data-selector="<?php echo $f3_map_selection ?>"></div>
+            <div class="f3-map-instructions">
+                Click on a pin to see the workouts and times for that location.
+            </div>
         </div>
         <div class="f3-map-details">
             <div class="f3-map-details-header">
