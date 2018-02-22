@@ -152,10 +152,9 @@
 
             if (count > 0) {
                 $('.f3-map-details').show();
-                $('.f3-map-details')[0].scrollIntoView({
-                    behavior: "smooth", 
-                    block: "end"
-                });
+                $('html, body').animate({
+                    scrollTop: $(".f3-map-details").offset().top
+                }, 1000);
             } else {
                 $('.f3-map-details').hide();
             }

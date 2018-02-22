@@ -108,12 +108,13 @@
 	.f3-map-details-address {
 		display: block;
 		float: left;
-		padding-left: 10px;
+		width: 100%
 	}
 	
 	.f3-map-details-workout {
 		display: block;
 		float: none;
+		width: 100%
 	}
 
 	.f3-calendar-row:nth-child(even) {
