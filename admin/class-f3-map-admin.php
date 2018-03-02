@@ -57,9 +57,6 @@ class F3_Map_Admin {
             </form>
         </div>
         <?php
-
-        echo $this->options['f3-gmap-api-key'];
-        echo $this->options['f3-css-selector'];
     }
 
     public function sanitize($input) {

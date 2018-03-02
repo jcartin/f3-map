@@ -8,14 +8,14 @@
  * that starts the plugin.
  *
  * @link              https://www.f3midlands.com
- * @since             1.0.0
+ * @since             1.0.1
  * @package           F3 Map Plugin
  *
  * @wordpress-plugin
  * Plugin Name:       F3 Midlands Map
  * Plugin URI:        https://www.f3midlands.com
  * Description:       Displays a google map with data from a jQuery selector
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            John Cartin
  * Author URI:        https://www.f3midlands.com
  * License:           MIT

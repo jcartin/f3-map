@@ -132,10 +132,24 @@
         var marker = new google.maps.Marker({
             position: new google.maps.LatLng(lat, lng), 
             map: map, 
-            title: name
+            title: name, 
+            draggable: false, 
+            animation: google.maps.Animation.DROP
         });
 
         marker.addListener('click', function(evt) {
+
+            if (marker.getAnimation() !== null) {
+                marker.setAnimation(null);
+            } else {
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+
+            setTimeout(function() {
+                if (marker.getAnimation() !== null) {
+                    marker.setAnimation(null);
+                }
+            }, 1000);
 
             $('#f3-map-details-location').text(name);
             $('#f3-map-details-address').text(line1 + ' ' + line2);
