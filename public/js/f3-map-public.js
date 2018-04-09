@@ -40,7 +40,12 @@
     }
 
     function setupMap(selector, pos) {
-        map = new google.maps.Map(document.getElementById('f3-map'), {
+
+        var mapElement = document.getElementById('f3-map');
+
+        if (mapElement === null) return;
+
+        map = new google.maps.Map(mapElement, {
             center: { lat: pos.latitude, lng: pos.longitude},
             zoom: 12
         });

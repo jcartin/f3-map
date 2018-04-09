@@ -15,7 +15,7 @@
  * Plugin Name:       F3 Midlands Map
  * Plugin URI:        https://www.f3midlands.com
  * Description:       Displays a google map with data from a jQuery selector
- * Version:           1.0.1
+ * Version:           1.0.2
  * Author:            John Cartin
  * Author URI:        https://www.f3midlands.com
  * License:           MIT

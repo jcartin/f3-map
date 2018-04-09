@@ -39,11 +39,22 @@
 
         $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
         $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+
+        $this->loader->add_action( 'wp_print_scripts', $this, 'inspect_scripts' );
         
         if (!is_admin()) {
             $this->loader->add_shortcode( 'f3_map', $plugin_public, 'f3_render_map' );
             $this->loader->add_shortcode( 'f3_table', $plugin_public, 'f3_render_table' );
         }
+    }
+
+    public function inspect_scripts() {
+        global $wp_scripts;
+        echo PHP_EOL.'<!-- Script Handles: ';
+        foreach ( $wp_scripts->queue as $handle ) :
+            echo $handle . ' || ';
+        endforeach;
+        echo ' -->'.PHP_EOL;
     }
 
     public function run() {
