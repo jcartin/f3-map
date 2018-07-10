@@ -46,10 +46,10 @@ const POST_LINK = 16;
          // insert the google maps api scripts, only if the maps api key is configured.
          wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/f3-map-public.js', array( 'jquery' ), $this->version, false );
          if ( strlen( $api_key ) > 0 ) {
-            wp_enqueue_script( 'f3_google_maps', '//maps.googleapis.com/maps/api/js?callback=F3SetupMap&key=' . $api_key, array( 'jquery', $this->plugin_name ), '', false );
+            wp_enqueue_script( 'google-maps', '//maps.googleapis.com/maps/api/js?callback=F3SetupMap&key=' . $api_key, array( 'jquery', $this->plugin_name ), '', false );
          }
          
-         wp_enqueue_script( 'f3_underscore', '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js', array( 'underscore', $this->plugin_name ), '', false );         
+         wp_enqueue_script( 'underscore', '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js', array( 'underscore', $this->plugin_name ), '', false );         
      }
 
 
@@ -80,6 +80,9 @@ const POST_LINK = 16;
      }
 
      public function f3_render_table( $atts ) {
+        $this->enqueue_scripts();
+        $this->enqueue_styles();
+
         $options = get_option( 'f3-options-name' );
         $f3_map_selector = $options['f3-css-selector'];
 
@@ -155,6 +158,9 @@ const POST_LINK = 16;
      }
 
      public function f3_render_map( $atts ) {
+        $this->enqueue_scripts();
+        $this->enqueue_styles();
+        
         $options = get_option( 'f3-options-name' );
         $f3_map_selector = $options['f3-css-selector'] ?? '.ao-location';
 
