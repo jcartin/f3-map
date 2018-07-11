@@ -54,29 +54,51 @@ const POST_LINK = 16;
 
 
      function assemble_map_link( $row ) {
-        echo '<a href="' . $row[GOOGLE_MAPS_LINK] . '"' 
-            . ' title="Click to show AO location in google maps (separate tab)"'
-            . ' target="_blank" class="ao-location"'
-            . ' data-lat="' . $row[LATITUDE] . '"'
-            . ' data-lng="' . $row[LONGITUDE] . '"'
-            . ' data-location="' . $row[LOCATION] . '"'
-            . ' data-workout="' . $row[WORKOUT_NAME] . '"' 
-            . ' data-line1="' . $row[STREET] . '"' 
-            . ' data-line2="' . $row[CITY] . ', ' . $row[STATE] . ' ' . $row[ZIP] . '"' 
-            . ' data-day="' . $row[DAY_OF_WEEK] . '"' 
-            . ' data-starttime="' . $row[START_TIME] . '"' 
-            . ' data-endtime="' . $row[END_TIME] . '"' 
-            . '>' 
-            . $row[LOCATION] 
-            . '</a>';
+
+        # we should only echo an anchor if the url is set.
+        $anchor = $row[GOOGLE_MAPS_LINK];
+
+        if ($anchor) {
+            return '<a href="' . $row[GOOGLE_MAPS_LINK] . '"' 
+                . ' title="Click to show AO location in google maps (separate tab)"'
+                . ' target="_blank" class="ao-location"'
+                . ' data-lat="' . $row[LATITUDE] . '"'
+                . ' data-lng="' . $row[LONGITUDE] . '"'
+                . ' data-location="' . $row[LOCATION] . '"'
+                . ' data-workout="' . $row[WORKOUT_NAME] . '"' 
+                . ' data-line1="' . $row[STREET] . '"' 
+                . ' data-line2="' . $row[CITY] . ', ' . $row[STATE] . ' ' . $row[ZIP] . '"' 
+                . ' data-day="' . $row[DAY_OF_WEEK] . '"' 
+                . ' data-starttime="' . $row[START_TIME] . '"' 
+                . ' data-endtime="' . $row[END_TIME] . '"' 
+                . '>' 
+                . $row[LOCATION] 
+                . '</a>';
+        } else {
+            return $row[LOCATION];
+        }
+        
      }
      
      function assemble_twitter_link($row) {
-         return '<a title="Click to visit twitter" target="_blank" href="https://twitter.com/' . $row[TWITTER_HANDLE] . '">' . $row[TWITTER_NAME] . '</a>';
+         $handle = $row[TWITTER_HANDLE];
+         $name = $row[TWITTER_NAME];
+
+         if ($handle) {
+            return '<a title="Click to visit twitter" target="_blank" href="https://twitter.com/' . $row[TWITTER_HANDLE] . '">' . $row[TWITTER_NAME] . '</a>';
+         }
+
+         return $name;
      }
 
      function assemble_post_link($row) {
-         return '<a title="Click to visit backblasts for this AO" href="' . $row[POST_LINK] . '">' . $row[WORKOUT_NAME] . '</a>';;
+         $link = $row[POST_LINK];
+
+         if ($link) {
+            return '<a title="Click to visit backblasts for this AO" href="' . $row[POST_LINK] . '">' . $row[WORKOUT_NAME] . '</a>';;
+         }
+
+         return $row[WORKOUT_NAME];
      }
 
      public function f3_render_table( $atts ) {

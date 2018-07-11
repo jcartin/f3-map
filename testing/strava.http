@@ -6,3 +6,11 @@ Authorization: Bearer f2e17c80671e2e016f3df2123119c71267e634e1
 
 GET https://www.strava.com/api/v3/clubs/218802
 Authorization: Bearer f2e17c80671e2e016f3df2123119c71267e634e1
+
+
+###
+GET https://docs.google.com/spreadsheets/d/1X4qU0Hz71gVx_dN-1A5LCv-_o_7-XKVkRlxXNv2Ii0A/gviz/tq?tqx=out:csv&sheet=Faith
+
+
+###
+GET https://docs.google.com/spreadsheets/d/1X4qU0Hz71gVx_dN-1A5LCv-_o_7-XKVkRlxXNv2Ii0A/gviz/tq?tqx=out:csv&sheet=Fellowship
