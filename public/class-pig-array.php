@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * Summary.
+ * 
+ * This class wraps a standard php array and help protect against out of bounds access. If 
+ * an out of bounds indexer is used, the default value passed in the constructur (or NULL) 
+ * will be returned.
+ * 
+ * code is taken from:
+ * https://stackoverflow.com/questions/10300868/safely-get-array-element-value-for-defined-and-undefined-indexes 
+ */
 class PigArray implements ArrayAccess {
 
     private $array;
