@@ -46,6 +46,10 @@
         $wsc_options['f3-css-selector'] = '.ao-location';
     }
 
+    if (!array_key_exists('f3-ignore-cache', $wsc_options)) {
+        $wsc_options['f3-ignore-cache'] = '';
+    }
+
     update_option('f3-options-name', $wsc_options);
  }
 

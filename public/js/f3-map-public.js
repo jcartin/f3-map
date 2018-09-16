@@ -1,5 +1,6 @@
 (function( $ ) {
     var map, infoWindows;
+    var markers = [];
 
     function F3SetupMap() {
         $(function() {
@@ -72,6 +73,26 @@
                 data.items
             );
         });
+
+        // now setup the marker links
+        $.each($(".f3-table-cell-marker"), function(i, data) {
+            $(data).click(function() {
+                var d = $(data).data();
+                
+                var center = new google.maps.LatLng(d.lat, d.lng);
+                map.panTo(center);
+
+                // now see if there is an existing marker at this position, and if so
+                // let's click on it.
+                for (var i = 0; i < markers.length; i++) {
+                    if (markers[i].getPosition().equals(center)) {
+                        google.maps.event.trigger(markers[i], 'click');
+                    }
+                }
+            });
+        });
+
+        console.log(map);
     }
 
     function handleLocationError(browserHasGeoLocation, infoWindow, pos) {
@@ -141,6 +162,7 @@
             draggable: false, 
             animation: google.maps.Animation.DROP
         });
+        markers.push(marker);
 
         marker.addListener('click', function(evt) {
 

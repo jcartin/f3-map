@@ -74,6 +74,10 @@
 	font-size: 2rem;
 }
 
+.f3-table-cell-marker:hover {
+	cursor: pointer;
+}
+
 @media only screen and (max-width: 768px) {
 
 	.f3-table {

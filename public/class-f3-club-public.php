@@ -52,6 +52,14 @@ const POST_LINK = 16;
          wp_enqueue_script( 'underscore', '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js', array( 'underscore', $this->plugin_name ), '', false );         
      }
 
+     function assemble_marker_link( $row ) {
+         return '<a href="javascript:CenterAO(' . $row[LATITUDE] . ', ' . $row[LONGITUDE] . ')" '
+            . 'title="Click to view AO on map." '
+            . 'alt="View AO on map." '
+            . 'class="ao-marker">'
+                . '<img src="' . plugins_url('public/imgs/marker.png', dirname(__FILE__)) . '" height="18" width="18" title="Click to view AO on map." />'
+            . '</a>';
+     }
 
      function assemble_map_link( $row ) {
 
@@ -101,6 +109,17 @@ const POST_LINK = 16;
          return $row[WORKOUT_NAME];
      }
 
+     function get_marker_url($row) {
+         $style = $row[WORKOUT_STYLE];
+
+         // could be bootcamp, run group, kettlebell, ruck, group run/core, group run/ruck
+         if (preg_match('/run/i', $style) == 0) {
+            return plugins_url('public/imgs/marker-blue.png', dirname(__FILE__));
+         }
+
+        return plugins_url('public/imgs/marker-red.png', dirname(__FILE__));
+     }
+
      public function f3_render_table( $atts ) {
         $this->enqueue_scripts();
         $this->enqueue_styles();
@@ -138,7 +157,8 @@ const POST_LINK = 16;
         </div> 
         <div class="f3-table">
             <div class="f3-table-heading">
-                <div class="f3-table-row"   >
+                <div class="f3-table-row">
+                    <div class="f3-table-cell">&nbsp;</div>
                     <div class="f3-table-cell">Location</div>
                     <div class="f3-table-cell">Workout Title</div>
                     <div class="f3-table-cell">Day of the Week</div>
@@ -162,6 +182,9 @@ const POST_LINK = 16;
 
             ?>
                 <div class="f3-table-row">
+                        <div class="f3-table-cell f3-table-cell-marker" data-label="" data-lat="<?= $row[LATITUDE] ?>" data-lng="<?= $row[LONGITUDE] ?>">
+                            <img src="<?= $this->get_marker_url($row) ?>" height="18" width="18" title="Click to view AO on map." />
+                        </div>
                         <div class="f3-table-cell f3-table-cell-location" data-label="Location"><?= $this->assemble_map_link($row) ?></div>
                         <div class="f3-table-cell f3-table-cell-workout" data-label="Workout Title"><?= $this->assemble_post_link($row) ?></div>
                         <div class="f3-table-cell f3-table-cell-day" data-label="Day of the Week"><?= $row[DAY_OF_WEEK] ?></div>
