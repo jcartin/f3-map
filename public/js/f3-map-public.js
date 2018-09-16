@@ -60,18 +60,7 @@
         });
         data = groupLocations(data);
         $.each(data, function(i, data) {
-            mapao(
-                data.lat, 
-                data.lng, 
-                data.location, 
-                data.workout,    
-                data.line1, 
-                data.line2, 
-                data.day, 
-                data.starttime, 
-                data.endtime, 
-                data.items
-            );
+            mapao(data);
         });
 
         // now setup the marker links
@@ -152,13 +141,13 @@
         return null;
     }
 
-    function mapao(lat, lng, name, workout, line1, line2, dayOfTheWeek, startTime, endTime, items) {
+    function mapao(data) {
         if (!map) return;
 
         var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(lat, lng), 
+            position: new google.maps.LatLng(data.lat, data.lng), 
             map: map, 
-            title: name, 
+            title: data.name, 
             draggable: false, 
             animation: google.maps.Animation.DROP
         });
@@ -178,17 +167,17 @@
                 }
             }, 1000);
 
-            $('#f3-map-details-location').text(name);
-            $('#f3-map-details-address').text(line1 + ' ' + line2);
+            $('#f3-map-details-location').text(data.name);
+            $('#f3-map-details-address').text(data.line1 + ' ' + data.line2);
 
             var count = 0;
-            count += evaluateWeekday(items, 'Sunday', '#f3-map-detail-sunday');
-            count += evaluateWeekday(items, 'Monday', '#f3-map-detail-monday');
-            count += evaluateWeekday(items, 'Tuesday', '#f3-map-detail-tuesday');
-            count += evaluateWeekday(items, 'Wednesday', '#f3-map-detail-wednesday');
-            count += evaluateWeekday(items, 'Thursday', '#f3-map-detail-thursday');
-            count += evaluateWeekday(items, 'Friday', '#f3-map-detail-friday');
-            count += evaluateWeekday(items, 'Saturday', '#f3-map-detail-saturday');
+            count += evaluateWeekday(data.items, 'Sunday', '#f3-map-detail-sunday');
+            count += evaluateWeekday(data.items, 'Monday', '#f3-map-detail-monday');
+            count += evaluateWeekday(data.items, 'Tuesday', '#f3-map-detail-tuesday');
+            count += evaluateWeekday(data.items, 'Wednesday', '#f3-map-detail-wednesday');
+            count += evaluateWeekday(data.items, 'Thursday', '#f3-map-detail-thursday');
+            count += evaluateWeekday(data.items, 'Friday', '#f3-map-detail-friday');
+            count += evaluateWeekday(data.items, 'Saturday', '#f3-map-detail-saturday');
 
             if (count > 0) {
                 $('.f3-map-details').show();
@@ -229,7 +218,21 @@
             if (item.endtime || item.endtime.length > 0) {
                 timeframe = timeframe + ' - ' + item.endtime;
             }
-            $(selector).append('<div><div class="f3-map-details-workout">' + toTitleCase(item.workout) + '&nbsp;</div><div class="f3-map-details-time">' + timeframe + '&nbsp;</div></div>');
+
+            var txt = '<div>';
+                txt += '<div class="f3-map-details-workout">';
+                    txt += toTitleCase(item.workout) + '&nbsp;';
+                txt += '</div>';
+                txt += '<div class="f3-map-details-time">';
+                    txt += timeframe + '&nbsp;';
+                txt += '</div>';
+                txt += '<div>';
+                    txt += item.style || '';
+                txt += '</div>';
+            txt += '</div>';
+
+            //$(selector).append('<div><div class="f3-map-details-workout">' + toTitleCase(item.workout) + '&nbsp;</div><div class="f3-map-details-time">' + timeframe + '&nbsp;</div></div>');
+            $(selector).append(txt);
         });
 
         return aos.length;

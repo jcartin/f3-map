@@ -22,7 +22,8 @@
     private function load_dependencies() {
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-f3-map-loader.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-f3-map-admin.php';
-        require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-f3-club-public.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-f3-map-table.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-f3-map-map.php';
 
         $this->loader = new F3_map_Loader();
     }
@@ -36,11 +37,12 @@
 
     private function define_public_hooks() {
         $plugin_public = new F3_Map_Public($this->get_plugin_name(), $this->get_version());
+        $plugin_map = new F3_Map_Map($this->get_plugin_name(), $this->get_version());
 
         $this->loader->add_action( 'wp_print_scripts', $this, 'inspect_scripts' );
         
         if (!is_admin()) {
-            $this->loader->add_shortcode( 'f3_map', $plugin_public, 'f3_render_map' );
+            $this->loader->add_shortcode( 'f3_map', $plugin_map, 'f3_render_map' );
             $this->loader->add_shortcode( 'f3_table', $plugin_public, 'f3_render_table' );
         }
     }
