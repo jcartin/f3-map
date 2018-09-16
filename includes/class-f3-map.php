@@ -30,20 +30,28 @@
     private function define_admin_hooks() {
         $plugin_admin = new F3_Map_Admin( $this->plugin_name, $this->version );
 
-        $this->loader->add_action( 'admin_menu', $plugin_admin, 'wsc_register_options_page' );
-        $this->loader->add_action( 'admin_init', $plugin_admin, 'wsc_register_settings' );
+        $this->loader->add_action( 'admin_menu', $plugin_admin, 'f3_register_options_page' );
+        $this->loader->add_action( 'admin_init', $plugin_admin, 'f3_register_settings' );
     }
 
     private function define_public_hooks() {
         $plugin_public = new F3_Map_Public($this->get_plugin_name(), $this->get_version());
 
-        $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-        $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+        $this->loader->add_action( 'wp_print_scripts', $this, 'inspect_scripts' );
         
         if (!is_admin()) {
             $this->loader->add_shortcode( 'f3_map', $plugin_public, 'f3_render_map' );
             $this->loader->add_shortcode( 'f3_table', $plugin_public, 'f3_render_table' );
         }
+    }
+
+    public function inspect_scripts() {
+        global $wp_scripts;
+        echo PHP_EOL.'<!-- Script Handles: ';
+        foreach ( $wp_scripts->queue as $handle ) :
+            echo $handle . ' || ';
+        endforeach;
+        echo ' -->'.PHP_EOL;
     }
 
     public function run() {

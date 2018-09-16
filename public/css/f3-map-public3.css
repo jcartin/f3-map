@@ -1,3 +1,8 @@
+.f3-table-title {
+	font-weight: bold;
+	padding-bottom: 15px;
+}
+
 .f3-table{
 	display: table;
 	width: 100%;
@@ -5,8 +10,9 @@
 .f3-table-row {
 	display: table-row;
 }
-.f3-table-row:nth-child(even) {
-	background-color: #f9f9f9;
+.f3-table-heading {
+	background-color: #EEE;
+	display: table-header-group;
 }
 .f3-table-cell, .f3-table-head {
 	border: 1px solid #999999;
@@ -14,7 +20,7 @@
 	padding: 3px 10px;
 }
 .f3-table-heading {
-	background-color: #d9edf7;
+	background-color: #EEE;
 	display: table-header-group;
 	font-weight: bold;
 }
@@ -36,11 +42,6 @@
     width: 100%;
 }
 
-.f3-map-instructions {
-	font-size: .8em;
-	font-style: italic;
-}
-
 .f3-map-details {
 	display: none;
 }
@@ -55,10 +56,6 @@
 	float: right;
 }
 
-.f3-map-details-header {
-	clear: both;
-}
-
 .f3-map-details-workout {
 	width: 100%;
 }
@@ -66,16 +63,6 @@
 .f3-map-details-time {
 	font-size: 0.8em;
 	width: 100%;
-}
-
-.f3-table-title {
-	font-weight: 400;
-	padding-bottom: 15px;
-	font-size: 2rem;
-}
-
-.f3-table-cell-marker:hover {
-	cursor: pointer;
 }
 
 @media only screen and (max-width: 768px) {
@@ -109,27 +96,6 @@
 		float: left;
 		text-transform: uppercase;
 		font-weight: bold;
-	}
-
-	.f3-map-details-header {
-		display: block;
-		padding-bottom: 52px;
-	}
-
-	.f3-map-details-address {
-		display: block;
-		float: left;
-		width: 100%
-	}
-	
-	.f3-map-details-workout {
-		display: block;
-		float: none;
-		width: 100%
-	}
-
-	.f3-calendar-row:nth-child(even) {
-		background-color: #f9f9f9;
 	}
 
 }
