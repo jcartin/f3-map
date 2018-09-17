@@ -69,17 +69,7 @@ const POST_LINK = 16;
         if ($anchor) {
             return '<a href="' . $row[GOOGLE_MAPS_LINK] . '"' 
                 . ' title="Click to show AO location in google maps (separate tab)"'
-                . ' target="_blank" class="ao-location"'
-                . ' data-lat="' . $row[LATITUDE] . '"'
-                . ' data-lng="' . $row[LONGITUDE] . '"'
-                . ' data-location="' . $row[LOCATION] . '"'
-                . ' data-workout="' . $row[WORKOUT_NAME] . '"' 
-                . ' data-line1="' . $row[STREET] . '"' 
-                . ' data-line2="' . $row[CITY] . ', ' . $row[STATE] . ' ' . $row[ZIP] . '"' 
-                . ' data-day="' . $row[DAY_OF_WEEK] . '"' 
-                . ' data-starttime="' . $row[START_TIME] . '"' 
-                . ' data-endtime="' . $row[END_TIME] . '"' 
-                . ' data-style="' . $row[WORKOUT_STYLE] . '"'
+                . ' target="_blank" class="ao-map-link"'
                 . '>' 
                 . $row[LOCATION] 
                 . '</a>';
@@ -182,7 +172,16 @@ const POST_LINK = 16;
             $row = new PigArray($row, '');
 
             ?>
-                <div class="f3-table-row">
+                <div class="f3-table-row ao-location" data-lat="<?= $row[LATITUDE] ?>" 
+                            data-lng="<?= $row[LONGITUDE] ?>" 
+                            data-location="<?= $row[LOCATION] ?>" 
+                            data-workout="<?= $row[WORKOUT_NAME] ?>" 
+                            data-line1="<?= $row[STREET] ?>" 
+                            data-line2="<?= $row[CITY] . ', ' . $row[STATE] . ' ' . $row[ZIP] ?>" 
+                            data-day="<?= $row[DAY_OF_WEEK] ?>" 
+                            data-starttime="<?= $row[START_TIME] ?>" 
+                            data-endtime="<?= $row[END_TIME] ?>" 
+                            data-style="<?= $row[WORKOUT_STYLE] ?>">
                         <div class="f3-table-cell f3-table-cell-marker" data-label="" data-lat="<?= $row[LATITUDE] ?>" data-lng="<?= $row[LONGITUDE] ?>">
                             <img src="<?= $this->get_marker_url($row) ?>" height="18" width="18" title="Click to view AO on map." />
                         </div>

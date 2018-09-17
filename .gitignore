@@ -18,3 +18,6 @@ wp-content/plugins/hello.php
 
 .DS_Store
 f3-map-*.zip
+
+node_modules
+.vscode
